@@ -1,0 +1,23 @@
+# Read the documentation: https://symfony.com/doc/master/bundles/FOSRestBundle/index.html
+# @see https://minasami.com/2021/06/23/part-1-setup-reactjs-symfony-app-with-hotloading.html
+fos_rest:
+  routing_loader: false
+  disable_csrf_role: ROLE_API
+  param_fetcher_listener:  true
+  body_listener: true
+  view:
+    view_response_listener:  true
+    formats:
+      json: true
+      html: false
+    mime_types:
+      json: [ 'application/json', 'application/json;version=1.0', 'application/json;version=1.1', 'application/json;version=1.2' ]
+  exception:
+    enabled: true
+    serialize_exceptions: false
+  format_listener:
+    enabled: true
+    rules:
+      - { path: ^/api/v1, prefer_extension: true, fallback_format: json, priorities: [ json ] }
+
+

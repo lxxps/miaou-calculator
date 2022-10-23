@@ -1,0 +1,8 @@
+# Logs volume
+/var/logs
+# Must fit your needs
+.env
+
+# IDE things
+.idea
+*.bak
