@@ -31,7 +31,8 @@ docker-compose up -d
 ```json
 {
   "status":418,
-  "message":"I'm a teapot"
+  "message":"I'm a teapot",
+  "version": "1.0.0"
 }
 ```
 
