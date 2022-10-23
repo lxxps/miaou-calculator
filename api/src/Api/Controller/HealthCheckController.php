@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Api\Controller;
 
+use App\Api\Response\JsonResponse;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Simple HealthCheckController
@@ -23,7 +24,6 @@ class HealthCheckController extends AbstractFOSRestController
      */
     public function getHealthCheck()
     {
-
-        return new JsonResponse(["status"=>418,"message"=>"I'm a teapot"],418);
+        return new JsonResponse(["status" => 418, "message" => "I'm a teapot"], 418);
     }
 }

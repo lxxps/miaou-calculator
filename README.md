@@ -10,18 +10,24 @@ Sourced from https://minasami.com/2021/06/23/part-1-setup-reactjs-symfony-app-wi
 
 ## Installation
 
-1. Copy .env.sample to .env
+1. Clone Git project
+```shell
+git clone git@github.com:lxxps/miaou-calculator.git <path_to_project>
+cd <path_to_project>
+```
+
+2. Copy .env.sample to .env
 ```shell
 cp .env.sample .env
 ```
 And edit it to fit your needs
 
-2. Wake up the stack helping docker-compose
+3. Wake up the stack helping docker-compose
 ```shell
 docker-compose up -d
 ```
 
-3. Go to `http://localhost/9090/api/v1/healthcheck` to validate JSON response
+4. Go to `http://localhost:9090/api/v1/healthcheck` to validate JSON response
 ```json
 {
   "status":418,
