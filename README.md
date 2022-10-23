@@ -12,7 +12,7 @@ Sourced from https://minasami.com/2021/06/23/part-1-setup-reactjs-symfony-app-wi
 
 1. Clone Git project
 ```shell
-git clone git@github.com:lxxps/miaou-calculator.git <path_to_project>
+git clone https://github.com/lxxps/miaou-calculator.git <path_to_project>
 cd <path_to_project>
 ```
 
