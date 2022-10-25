@@ -33,9 +33,10 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} >
     && printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/conf.d/tzone.ini \
     && "date"
 
-CMD ["php-fpm", "-F"]
-
 COPY . /var/www/api
 WORKDIR /var/www/api
+
+# https://stackoverflow.com/questions/44864852/docker-execute-command-after-mounting-a-volume
+CMD sh -c "composer install --ignore-platform-reqs --no-scripts && php-fpm -F"
 
 EXPOSE 9000
