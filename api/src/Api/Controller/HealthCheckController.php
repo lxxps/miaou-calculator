@@ -24,6 +24,6 @@ class HealthCheckController extends AbstractFOSRestController
      */
     public function getHealthCheck()
     {
-        return new JsonResponse(["status" => 418, "message" => "I'm a teapot"], 418);
+        return new JsonResponse(["status" => 200, "message" => "OK"], 200);
     }
 }

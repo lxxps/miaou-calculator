@@ -8,15 +8,19 @@ services:
     build: docker/nginx
     restart: on-failure
     volumes:
-      # this will mount the api folder which contains the code to the docker container
+      # this will mount the API folder which contains the code to the docker container
       - ${PWD}/api:/var/www/api:delegated
+      # this will mount the UI folder which contains the code to the docker container
+      - ${PWD}/ui:/var/www/ui:delegated
       # this will mount the nginx logs so that you can check the logs for errors,
       # without logging into the container
       - ${PWD}/var/logs/nginx/:/var/log/nginx:delegated
-      # this will create the server config to serve the api
+      # this will create the server config to serve the API
       - ${PWD}/docker/nginx/api.conf:/etc/nginx/conf.d/api.conf:delegated
+      # this will create the server config to serve the UI
+      - ${PWD}/docker/nginx/ui.conf:/etc/nginx/conf.d/ui.conf:delegated
     ports:
-    - "9000:80"
+      - "9000:80"
     depends_on:
       - api
       - ui
@@ -35,7 +39,7 @@ services:
       - monitoring
 
   ui:
-    build: docker/node
+    build: ui
     restart: on-failure
     depends_on:
       - api

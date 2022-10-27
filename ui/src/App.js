@@ -6,9 +6,9 @@ import { z } from "zod";
  * healthCheckResponse schema validation
  */
 const healthCheckSchema = z.object({
-    status: z.number().positive().int(),
-    message: z.string(),
-    version: z.string()
+  status: z.number().positive().int(),
+  message: z.string(),
+  version: z.string()
 });
 
 /**
@@ -22,25 +22,25 @@ class App extends Component {
 
   componentDidMount() {
     // construct the url of the API call
-    const url = `${process.env.API_URL}/healthcheck`;
+    const url = `${process.env.REACT_APP_API_ENDPOINT}/healthcheck`;
     fetch(url)
         .then(res => res.json())
         .then(
             (result) => {
-                try {
-                    healthCheckSchema.parse(result);
-                    this.setState({
-                        healthCheck: result
-                    });
-                } catch( e ) {
-                    this.setState({
-                        hasError: true
-                    });
-                    // Log to console for now
-                    console.error(Error(e.message ?? e));
-                    // Re-throw?
-                    //throw e;
-                }
+              try {
+                healthCheckSchema.parse(result);
+                this.setState({
+                  healthCheck: result
+                });
+              } catch( e ) {
+                this.setState({
+                  hasError: true
+                });
+                // Log to console for now
+                console.error(Error(e.message ?? e));
+                // Re-throw?
+                //throw e;
+              }
             }
         )
   }
@@ -52,8 +52,8 @@ class App extends Component {
     return (
         <div className="App">
           <header className="App-header">
-            Server HealthCheck status: {healthCheck['status']}<br/>
-            Server HealthCheck message: {healthCheck['message']}<br/>
+            API HealthCheck Status: {healthCheck['status']} {healthCheck['message']}<br/>
+            API Version: {healthCheck['version']}<br/>
           </header>
         </div>
     );
