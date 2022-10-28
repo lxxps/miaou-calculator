@@ -1,4 +1,5 @@
 # @see https://minasami.com/2021/06/23/part-1-setup-reactjs-symfony-app-with-hotloading.html
+# @see https://minasami.com/2021/09/24/part-2-setup-spa-reactjs-frontend-with-hot-reloading-for-development.html
 
 version: "3.7"
 
@@ -7,17 +8,22 @@ services:
     build: docker/nginx
     restart: on-failure
     volumes:
-      # this will mount the api folder which contains the code to the docker container
+      # this will mount the API folder which contains the code to the docker container
       - ${PWD}/api:/var/www/api:delegated
+      # this will mount the UI folder which contains the code to the docker container
+      - ${PWD}/ui:/var/www/ui:delegated
       # this will mount the nginx logs so that you can check the logs for errors,
       # without logging into the container
       - ${PWD}/var/logs/nginx/:/var/log/nginx:delegated
-      # this will create the server config to serve the api
+      # this will create the server config to serve the API
       - ${PWD}/docker/nginx/api.conf:/etc/nginx/conf.d/api.conf:delegated
+      # this will create the server config to serve the UI
+      - ${PWD}/docker/nginx/ui.conf:/etc/nginx/conf.d/ui.conf:delegated
     ports:
-    - "9090:80"
+      - "9000:80"
     depends_on:
       - api
+      - ui
     networks:
       - monitoring
 
@@ -32,6 +38,27 @@ services:
     networks:
       - monitoring
 
+  ui:
+    build: ui
+    restart: on-failure
+    depends_on:
+      - api
+    networks:
+      - monitoring
+    volumes:
+      # this will mount the ui folder which contains the code to the docker container
+      - ${PWD}/ui:/var/www/ui:delegated
+      # this will mount the node_modules folder for faster performance
+      - nodemodules:/var/www/ui/node_modules
+    ports:
+      - "3000:3000"
+    # below line starts the project
+    command: "npm start"
+
 networks:
   monitoring:
     driver: bridge
+
+# volumes
+volumes:
+  nodemodules: {}
